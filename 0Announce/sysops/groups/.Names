@@ -1,0 +1,11 @@
+#
+# Title=站長唯讀討論區精華                    (BM: SYSOP)
+#
+Name=○ 垃圾回收筒                         (BM: SYSOP)
+Path=~/junk
+Numb=1
+#
+Name=○ 系統記錄區                         (BM: SYSOP)
+Path=~/syssecurity
+Numb=2
+#

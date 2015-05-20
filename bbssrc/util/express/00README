@@ -1,0 +1,188 @@
+BBS Express Project for SEEDNet BBS generation 1
+$Id: 00README,v 1.1 2000/01/15 01:45:30 edwardc Exp $
+==============================================================================
+BBS 快信 Server 簡易安裝辦法	ver 1.0				
+
+						by edwardc.bbs@bbs.seed.net.tw
+
+0. 前言
+
+    目前本 Server 僅適用於 Firebird BBS 及其分支系統, sob/maple 版本則
+    計劃中.
+
+    基本上所有火鳥系統與其他分支都能夠正常安裝, 倘若不能正常安裝, 請回報
+    錯誤訊息以供改進
+
+
+
+1. 安裝
+
+    抓回最新版本的 server tar ball, 在 ~bbsroot/bbs_src 底下解開
+
+    % cd ~bbsroot/bbs_src
+    % tar zxvf server.tar.gz
+ 
+        或
+
+    % gzip -d server.tar.gz ; tar xvf server.tar
+
+    解開之後會產生一個子目錄 express 此為 server 的原始碼
+
+    編輯裡面的 Makefile (請務必使用 vi, joe, ee ... 等編輯器, 勿使用 ve)
+    修改 BBSHOME 與 BBSSRC 還有 CFLAGS 等設定
+
+    設定完成後, 請執行 make, 開始編譯程式碼
+
+    若編譯無誤, 將會產生一可執行檔為 express
+
+    接著啟動 server
+
+    % ./express 2000		; 2000 為快信預設的 port
+
+    這時應該會出現 express[xxxxx] at port 2000 started
+
+    xxxxx 即是 server 的 pid
+
+    然後試著 telnet localhost 2000 , 且登入看看
+
+    % telnet localhost 2000
+
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+200 BlueWave Express server at XXXXX starting, nice to see you.
+user xxxxx	<= xxxxx 為你在 bbs 上的 id
+300 Password required for [xxxxx]
+pass yyyyy 	<= yyyyy 為你在 bbs 上的密碼
+200 Welcome to use Express Ver 1.01 (standalone) , xxxxx .
+
+如果出現以上這行表示到目前為止一切都很順利, server 已經安裝成功了, 請輸入 quit
+
+quit
+200 BlueWave Express server at XXXXX signing off, bye bye.
+Connection closed by foreign host.
+
+    如果一切順利無誤, 那麼請往下看, 繼續完成安裝手續, 如果有問題發生, 那麼請檢
+    你的步驟, 或是在做一次
+
+    到目前為止一切都很順利, 那麼請執行 make install 將執行檔安裝到 ~bbs/bin 裡
+
+    % make install
+
+    請修改 /etc/rc.local 如果你想每次開機都由系統自動啟動快信 server 的話
+
+
+
+2. 安裝 BBS 介面
+
+    如果你不想讓使用者可以透過 bbs 的介面來使用或設定快信的話, 那麼請跳過本節
+
+    安裝 BBS 介面可以讓使用者可以透過 bbs 來使用或修改快信的設定, 更可以藉由
+    支援 zmodem transfeer 的 telent client (例如: netterm, simpterm ..)
+    來下載信包
+
+    這個步驟中, 你必須要修改 bbs 的程式碼, 來新增一個功能, 如果你沒有相當的
+    把握, 請找你身旁熟的人幫忙 .. or 跳過 :/
+
+
+
+    修改 modes.h , 並在最後一行加入一個 entry 像底下這樣的
+
+#define WFRIEND         50
+#define SYSINFO         51
+#define EXPRESS         52	<= 加入這一行, 後面的數字請自行設定
+
+    存檔後修改 modetype.c , 在 switch ( mode ) 下加入一行
+
+        case FRIEND:    return "尋找好友";
+        case MONITOR:   return "探視民情";
+        case EXPRESS:   return "快信系統";	/* 加入這一行 */
+        case QUERY:     return "查詢網友";
+
+    之後修改 comm_lists.c , 在前 50~60 行裡面自己加一行
+
+int	express();
+
+    然後修改底下 ModeType() 函數裡面, 約 90 行, 加入一行
+
+        "SetAlarm",     setcalltime,
+        "MailAll",      mailall,
+        "Express",      express,	/* 加入這行 */
+        "LockScreen",   x_lockscreen,
+        "SYSINFO",      x_sysinfo,    
+
+    為了等下修改 Makefile 方便, 我建議你把 express.c link 到 bbs_src 目錄, 
+    做法是: (先確定你目前在 bbs_src 目錄)
+
+    % ln -s express/express.c .
+
+    其中 express/express.c 請自行調整
+
+
+    接著修改 Makefile (請務必使用 vi, joe, ee 等編輯器, 勿用 ve ..)
+
+    在 CFILE 的部份, 加入 express.c (如果你之前有 link express.c 到 bbs_src 目
+    錄的話)
+
+CFILE    = bbs.c record.c delete.c main.c stuff.c mail.c register.c \
+           xyz.c talk.c read.c comm_lists.c namecomplete.c chat.c \
+           maintain.c edit.c more.c pass.c help.c bcache.c boards.c \
+           screen.c io.c term.c userinfo.c vote.c announce.c sendmsg.c\
+           bm.c list.c goodbye.c bbsgopher.c fileshm.c postheader.c express.c
+								    ^^^^^^^^^
+    之後 COBJ 則是加入 express.o
+
+
+    然後你就可以準備重新 make bbs 了
+
+    % make all installbbs
+
+    如果編譯與安裝都無誤, 那麼你可以準備修改 ~bbs/etc/menu.ini 看你要放在哪裡
+    加入以下這行
+
+@Express      0, 0,  PERM_POST, "Express",   "(E)exprss     快信系統"
+
+    然後砍掉 ~bbs/sysconf.img 再上站就可以看到系統選單中多了一項, 如果可以進去
+    執行, 那表示 BBS 介面已經安裝完成了
+
+
+
+3. 外掛程式的安裝
+
+    快信程式需要幾個外掛的程式來幫助執行, 例如壓縮部份就要交給 rar 的程式來
+    做了
+
+    關於 rar 你可以在 ftp://ftp.seed.net.tw/pub/SEEDNetBBS/misc/RAR
+    裡找到屬於你機器的 rar 版本, 解開後, 將裡面的執行檔更名為 rar 並複製到 
+    ~bbs/bin 裡面.
+  
+    如果你有安裝 BBS 介面的話, 你可能還需要安裝 sz 來啟動 zmodem 傳輸的功能
+    請使用 archie 尋找 lrzsz 這個檔, 然後抓回來自行編譯, 當然, 也把編譯出來的
+    執行檔 "sz" 複製到 ~bbs/bin 裡面去
+
+
+
+4. client 測試
+
+    到了這裡可以試著使用 client 端測試了, 關於 client 的安裝使用, 請參照裡面
+    的使用說明.
+
+
+
+5. 後記
+
+    整個 server/client 部份, 目前為止並還沒有完成, 尤其是 server 部份, 是很簡
+    陋的架在 bbspop3d 上, 壓縮目前還是透過外掛程式, 希望將來能夠 implement
+    壓縮/解壓縮功能進去.
+
+    當然我也會儘快完成上傳的功能, 使得整個功能能夠完整.
+
+    如果發現任何 bug, 或是建議, 歡迎 e-mail 到 edwardc.bbs@bbs.seed.net.tw
+    或是到 bbs.seed.net.tw 的 SYSOP 板提出
+
+
+--
+Edward Chuang
+edwardc.bbs@bbs.seed.net.tw
+
+Release Date: Feb-14-1999

@@ -1,0 +1,19 @@
+#
+# Title=○ 系統記錄區                         (BM: SYSOP)
+#
+Name=○ 站長的工作室                       (BM: SYSOP)
+Path=~/sysop
+Numb=1
+#
+Name=○ 本站各項投票與結果                 (BM: SYSOP)
+Path=~/vote
+Numb=2
+#
+Name=○ 本站的各類統計列表與數據           (BM: SYSOP)
+Path=~/bbslists
+Numb=3
+#
+Name=○ 新手上路                           
+Path=~/newcomers
+Numb=4
+#

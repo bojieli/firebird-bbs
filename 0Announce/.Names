@@ -1,0 +1,23 @@
+#
+# Title=test BBS 精華區公佈欄
+#
+Name=本站使用者手冊
+Path=~/usermanual
+Numb=1
+#
+Name=討論區精華
+Path=~/groups
+Numb=2
+#
+Name=本站各類數據統計
+Path=~/bbslist
+Numb=3
+#
+Name=閒人免進區 - 限版主進入               (BM: BMS)
+Path=~/bms
+Numb=4
+#
+Name=閒人免進區 - 限站長進入               (BM: SYSOPS)
+Path=~/sysops
+Numb=5
+#

@@ -1,0 +1,62 @@
+$Id: 00README,v 1.1 2000/01/15 01:45:33 edwardc Exp $
+
+in.zbbsd 是用來取代系統預設的 telnetd，可以在使用者 telnet 過來時自動
+login bbs，節省鍵入時間，也增進系統安全。
+
+以下介紹 in.zbbsd 的使用方法：
+
+  1.首先修改您的 kernel 設定，將 pty 增加到 256 個，並且確定您的 /dev
+    下有 256 個 pty 裝置。
+
+  2.接著到 ~bbssrc/util/in.zbbsd 目錄，修改 Makefile，選擇適合您的 OS
+    的參數，將 # 號拿掉，並將其他 OS 用的參數以 # 注解掉。接下來修改
+    in.zbbsd.c，在 2543 行附近，修改您想要的 port 編號與個數，預設是
+    23, 3000, 3001, 3002 這四個，您可視需要增減。
+
+  3.接下來請打：make。如沒遇到任何問題，目錄下會多出一個 in.zbbsd 的
+    執行檔，請把該檔拷背到 /home/bbs/bin 目錄下。
+
+  4.接下來請修改 /etc/inetd.conf，尋找以下的字串：
+ 
+      telnet    stream  tcp  nowait  root  /usr/libexec/telnetd  telnetd
+
+    把該行改成：
+
+      telnet1   stream  tcp  nowait  root  /usr/libexec/telnetd  telnetd
+
+    ※因作業系統不同，您看到的設定可能與上述設定不盡相同，請把握一個
+      原則，就是在第一個 telnet 後面加上 1 就對了。
+
+  5.接著修改 /etc/services，在適當位置加上：
+
+      telnet1      2000/tcp          # previous in.telnetd daemon
+
+    ※這行設定將您舊的 telnetd port 設到 2000，您可以自行修改您喜歡的
+      port 數字，建議往後面設，如 54321。
+
+  6.執行以下指令，找出 inetd 的 PID：
+
+      # ps aux |grep "inetd"
+
+    接著執行以下指令，就可重新起動 inetd (或重開機也可)：
+
+      # kill -HUP (PID) 
+
+  7.以 root 身份執行 /home/bbs/bin/in.zbbsd，接著 telnet 到您的主機，
+    看看是否正常執行，設定無誤，您將會看到「連線中 ...」的字樣，然後
+    出現 BBS 的登入畫面；如果您看到「抱歉，客滿了，請稍後再來。」，請
+    確定您的 pty 數目是否正確。
+
+  8.將 /home/bbs/bin/in.zbbsd 這行指令加到 /etc/rc.local 中，以後開機
+    就會自動執行。
+
+  9.FB3 的 in.zbbsd 加入新的機制，接受設定密碼的 bbs 系統帳號, 在您測試
+    in.zbbsd 執行無誤後，您可以替 bbs 帳號設定密碼與安全的 login shell。
+	
+    BBS 未安裝 in.zbbsd 前，bbs 帳號是無密碼, shell 是 ~bbs/bin/bbsrf
+    安裝好 in.zbbsd 後，您可替 bbs 帳號設定一個密碼，並設定其 shell 為
+    系統認可的 shell (csh,tcsh,bash, etc) 或是安全的 shell (/noexistent,
+    /sbin/nologin, 等) 以增加系統安全。
+
+
+    Note: in.zbbsd for Firebird BBS 最原始版本從 Maple 2.39 移植過來。

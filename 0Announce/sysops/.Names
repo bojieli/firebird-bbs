@@ -1,0 +1,15 @@
+#
+# Title=閒人免進區 - 限站長進入               (BM: SYSOPS)
+# $Id: .Names,v 1.1 2000/01/15 01:49:33 edwardc Exp $
+Name=Firebird BBS 3.0 使用手冊              SYSOP 
+Path=~/Firebird-30
+Numb=1
+#
+Name=本站管理者手冊                         SYSOP 
+Path=~/admin-manual
+Numb=2
+#
+Name=站長唯讀討論區精華                    (BM: SYSOP)
+Path=~/groups
+Numb=3
+#

@@ -1,0 +1,67 @@
+#
+# Title=本站使用者手冊
+#
+Name=老鳥的忠告．．．                       SYSOP 
+Path=~/advice
+Numb=1
+#
+Name=如何完成本站的電子信箱驗證手續         SYSOP 
+Path=~/register
+Numb=2
+#
+Name=本站三個數字的意義                     SYSOP 
+Path=~/value
+Numb=3
+#
+Name=[MODEM] Telix 上 BBS 常見問題解答      SYSOP 
+Path=~/telix
+Numb=4
+#
+Name=步入 The Firebird BBS 3.0 的世界         SYSOP 
+Path=~/enterbbs
+Numb=5
+#
+Name=0Digest - 本站精華所在                 SYSOP 
+Path=~/Digest
+Numb=6
+#
+Name=1BoardMenu - 傳統的討論區選單          SYSOP 
+Path=~/boardmenu
+Numb=7
+#
+Name=EGroup - 分類討論區                    SYSOP 
+Path=~/EGroup
+Numb=8
+#
+Name=Boards - 閱覽討論區                    SYSOP 
+Path=~/Boards
+Numb=9
+#
+Name=Mail - 您處理私人信件的地方            SYSOP 
+Path=~/Mail
+Numb=10
+#
+Name=Talk - 談天說地.....                   SYSOP 
+Path=~/Talk
+Numb=11
+#
+Name=Service - 特別服務                     SYSOP 
+Path=~/Service
+Numb=12
+#
+Name=InfoEdit - 您的個人工具箱              SYSOP 
+Path=~/InfoEdit
+Numb=13
+#
+Name=Config - 有關本站的資訊                SYSOP 
+Path=~/Config
+Numb=14
+#
+Name=Help - 輔助畫面設定                    SYSOP 
+Path=~/Help
+Numb=15
+#
+Name=Goodbye - 離開本站                     SYSOP 
+Path=~/Goodbye
+Numb=16
+#

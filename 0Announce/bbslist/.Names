@@ -1,0 +1,67 @@
+#
+# Title=セ摸计沮参璸                    
+#
+Name=さぱキА璽更计参璸                 BBS╰参 
+Path=~/today
+Numb=1
+#
+Name=さぱ砐Ω参璸                     BBS╰参
+Path=~/countusr
+Numb=2
+#
+Name=さぱ穝糤参璸                     BBS╰参
+Path=~/newacct.today
+Numb=3
+#
+Name=琎ぱキА璽更计参璸                 BBS╰参 
+Path=~/yesterday
+Numb=4
+#
+Name=琎ぱ砐Ω参璸                     BBS╰参 
+Path=~/countusr.last
+Numb=5
+#
+Name=琎ぱ穝糤参璸                     BBS╰参
+Path=~/newacct.last
+Numb=6
+#
+Name=セ癚阶跋逼︽篯ゅ             BBS╰参
+Path=~/board2
+Numb=7
+#
+Name=セ癚阶跋逼︽篯瓜             BBS╰参 
+Path=~/board1
+Numb=8
+#
+Name=Ω计逼︽篯                         BBS╰参
+Path=~/toplogin
+Numb=9
+#
+Name=癚阶Ω计逼︽篯                         BBS╰参 
+Path=~/toppost
+Numb=10
+#
+Name=羆计逼︽篯                       BBS╰参 
+Path=~/topstay
+Numb=11
+#
+Name=羆瞷逼︽篯                         BBS╰参 
+Path=~/topall
+Numb=12
+#
+Name=セら荐杠肈                       BBS╰参
+Path=~/day
+Numb=13
+#
+Name=セ秅き荐杠肈                     BBS╰参
+Path=~/week
+Numb=14
+#
+Name=セるκ荐杠肈                     BBS╰参
+Path=~/month
+Numb=15
+#
+Name=セκき荐杠肈                   BBS╰参
+Path=~/year
+Numb=16
+#

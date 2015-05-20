@@ -1,0 +1,6 @@
+#domain hinet.net
+#host forsale.com.tv
+#content post@forsale.com.tv
+#query no
+#only edu.tw
+#詳細說明請參閱 util/innbbsd/README.antispam
